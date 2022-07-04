@@ -3,9 +3,7 @@ import PostSchema from "../models/Post.js";
 export const getAll = async (req, res) => {
     try {
         const posts = await PostSchema.find().populate("user").exec()
-        res.status(200).json({
-            data: posts
-        })
+        res.status(200).json(posts)
     } catch (err) {
         res.status(500).json({
             message: err.message
@@ -35,7 +33,7 @@ export const getOne = async (req, res) => {
                     return res.status(400).json({message: "Не удалось найти статью"})
                 }
                 res.json(doc)
-            })
+            }).populate("user")
 
     } catch (err) {
         res.status(500).json({
@@ -69,7 +67,7 @@ export const create = async (req, res) => {
             title: req.body.title,
             text: req.body.text,
             imageUrl: req.body.imageUrl,
-            tags: req.body.tags,
+            tags: req.body.tags.split(","),
             user: req.userId
         })
         const post = await doc.save()

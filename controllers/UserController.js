@@ -61,8 +61,8 @@ export const register = async (req, res) => {
 
         })
     } catch (e) {
-        res.status(200).json({
-            message: e.message
+        res.status(404).json({
+            message : "Ошибка при регистрации"
         })
     }
 }
@@ -77,6 +77,5 @@ export const getMe = async (req,res) => {
         const { passwordHash, ...userData } = user._doc
         res.json(userData)
     } catch (err){
-        console.log(err)
     }
 }
