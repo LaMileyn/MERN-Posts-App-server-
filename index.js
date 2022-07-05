@@ -8,6 +8,7 @@ import {postCreateValidation} from "./validations/posts.js";
 import multer from "multer"
 import handleValidationErrors from "./utils/handleValidationErrors.js";
 import cors from 'cors'
+import 'dotenv/config'
 
 const app = express()
 app.use(express.json())
@@ -24,7 +25,7 @@ const storage = multer.diskStorage({
 })
 const upload = multer( { storage })
 mongoose.connect(
-    "mongodb+srv://admin:mongoose39mongoosE@cluster0.tszqy.mongodb.net/blog?retryWrites=true&w=majority"
+    process.env.DB_CONN
 ).then(() => console.log("DB"))
 
 
